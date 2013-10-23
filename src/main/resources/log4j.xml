@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+	<appender name="file"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="10MB" />
+		<param name="maxBackupIndex" value="10" />
+		<param name="File" value="logs/truthTeller.log" />
+		<param name="threshold" value="info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{ISO8601} %5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+	<appender name="debugfile"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="2MB" />
+		<param name="maxBackupIndex" value="10" />
+		<param name="File" value="logs/truthTeller-debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{ISO8601} %5p %c:%L - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug" />
+			<param name="LevelMax" value="error" />
+		</filter>
+	</appender>
+
+	<root>
+		<priority value="debug"></priority>
+
+        <!-- comment out debugfile if you only want production settings -->
+		<appender-ref ref="debugfile" />
+                
+		<appender-ref ref="file" />
+	</root>
+</log4j:configuration>
